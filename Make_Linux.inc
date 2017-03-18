@@ -8,7 +8,8 @@ CPP = cpp
 LINKER   = $(CC)
 
 # Default compiler flags
-CFLAGS    = -O2
+CFLAGS    = -O2 -DUSE_GSL
+# CFLAGS    = -O2 -DUSE_GSL
 FFLAGS    = -O2
 CXXFLAGS  = -O2
 LDFLAGS   += -lm -lgsl -lgslcblas 
