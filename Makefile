@@ -8,7 +8,7 @@
 # 		 Then update the MACHINE variable accordingly.
 #
 MACHINE = Linux
-# MACHINE = Optimus
+# MACHINE = Eos
 include Make_$(MACHINE).inc
 
 ifdef debug
