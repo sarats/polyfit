@@ -11,7 +11,8 @@ LINKER   = $(CC)
 CFLAGS    = -O2
 FFLAGS    = -O2
 CXXFLAGS  = -O2
-LDFLAGS   += -L/usr/lib64/atlas -lm -lgsl -lcblas -latlas
+LDFLAGS   += -lm -lgsl -lgslcblas 
+# LDFLAGS   += -L/usr/lib64/atlas -lm -lgsl -lcblas -latlas
 
 # Include file directories
 INC_DIRS +=
