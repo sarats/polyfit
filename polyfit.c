@@ -2,6 +2,7 @@
  
 int polyfit(int npoints, int degree, double *xi, double *yi, double *coeff) 
 {
+#if defined(USE_GSL)
   int i, j;
   double chisq;
   gsl_matrix *cov, *X;
@@ -23,6 +24,7 @@ int polyfit(int npoints, int degree, double *xi, double *yi, double *coeff)
     gsl_vector_set(y, i, yi[i]);
   }
  
+  /* Ref: https://www.gnu.org/software/gsl/manual/html_node/Multi_002dparameter-regression.html#index-gsl_005fmultifit_005flinear */
   gsl_multifit_linear(X, y, c, cov, &chisq, ws);
  
   /* Pass the fitted coefficients back to calling function */
@@ -36,12 +38,32 @@ int polyfit(int npoints, int degree, double *xi, double *yi, double *coeff)
   gsl_vector_free(y);
   gsl_vector_free(c);
   gsl_multifit_linear_free(ws);
+#else
+	/* Placeholder for naive backup version */
+
+  
+  
+#endif
 
   return 0; 
 }
 
 double polyval(double *coeff, int degree, double x)
 {
+#if defined(USE_GSL)
+	/* Using gsl_poly_eval for simple cases, ref: https://www.gnu.org/software/gsl/manual/html_node/Polynomial-Evaluation.html#index-gsl_005fpoly_005feval
+	 * Can also use gsl_multifit_linear_est for error estimate etc. 
+	 * Ref: https://www.gnu.org/software/gsl/manual/html_node/Multi_002dparameter-regression.html#index-gsl_005fmultifit_005flinear_005fest */
 	return gsl_poly_eval(coeff, degree, x);
+#else
+	/* Very naive backup version */
+	int i;
+	double y = 0;
+
+	for( i=0; i<degree; i++)
+		y += coeff[i] * pow(x, i);
+	return y;
+#endif
+
 }
 
