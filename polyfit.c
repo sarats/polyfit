@@ -1,41 +1,47 @@
 #include "polyfit.h"
  
-int polynomialfit(int obs, int degree, 
-		   double *dx, double *dy, double *store) /* n, p */
+int polyfit(int npoints, int degree, double *xi, double *yi, double *coeff) 
 {
-  gsl_multifit_linear_workspace *ws;
+  int i, j;
+  double chisq;
   gsl_matrix *cov, *X;
   gsl_vector *y, *c;
-  double chisq;
  
-  int i, j;
- 
-  X = gsl_matrix_alloc(obs, degree);
-  y = gsl_vector_alloc(obs);
+  /* Initialize workspace */
+  gsl_multifit_linear_workspace *ws;
+  ws = gsl_multifit_linear_alloc(npoints, degree);
+
+  X = gsl_matrix_alloc(npoints, degree);
+  y = gsl_vector_alloc(npoints);
   c = gsl_vector_alloc(degree);
   cov = gsl_matrix_alloc(degree, degree);
  
-  for(i=0; i < obs; i++) {
+  for(i=0; i < npoints; i++) {
     for(j=0; j < degree; j++) {
-      gsl_matrix_set(X, i, j, pow(dx[i], j));
+      gsl_matrix_set(X, i, j, pow(xi[i], j));
     }
-    gsl_vector_set(y, i, dy[i]);
+    gsl_vector_set(y, i, yi[i]);
   }
  
-  ws = gsl_multifit_linear_alloc(obs, degree);
   gsl_multifit_linear(X, y, c, cov, &chisq, ws);
  
-  /* store result ... */
+  /* Pass the fitted coefficients back to calling function */
   for(i=0; i < degree; i++)
   {
-    store[i] = gsl_vector_get(c, i);
+    coeff[i] = gsl_vector_get(c, i);
   }
  
-  gsl_multifit_linear_free(ws);
   gsl_matrix_free(X);
   gsl_matrix_free(cov);
   gsl_vector_free(y);
   gsl_vector_free(c);
-  return 0; /* we do not "analyse" the result (cov matrix mainly)
-		  to know if the fit is "good" */
+  gsl_multifit_linear_free(ws);
+
+  return 0; 
 }
+
+double polyval(double *coeff, int degree, double x)
+{
+	return gsl_poly_eval(coeff, degree, x);
+}
+
