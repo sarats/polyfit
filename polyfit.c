@@ -39,7 +39,13 @@ int polyfit(int npoints, int degree, double *xi, double *yi, double *coeff)
   gsl_vector_free(c);
   gsl_multifit_linear_free(ws);
 #else
-	/* Placeholder for naive backup version */
+  /* Placeholder for naive backup version */
+  int i, j;
+  double chisq;
+
+  float wmax, tmp, thresh, sum, *b, *afunc, *vector();
+
+  b = malloc(
 
   
   
@@ -50,18 +56,21 @@ int polyfit(int npoints, int degree, double *xi, double *yi, double *coeff)
 
 double polyval(double *coeff, int degree, double x)
 {
-#if defined(USE_GSL)
+#if !defined(USE_GSL)
 	/* Using gsl_poly_eval for simple cases, ref: https://www.gnu.org/software/gsl/manual/html_node/Polynomial-Evaluation.html#index-gsl_005fpoly_005feval
 	 * Can also use gsl_multifit_linear_est for error estimate etc. 
 	 * Ref: https://www.gnu.org/software/gsl/manual/html_node/Multi_002dparameter-regression.html#index-gsl_005fmultifit_005flinear_005fest */
 	return gsl_poly_eval(coeff, degree, x);
 #else
-	/* Very naive backup version */
+	/* Backup version: 
+	 * implements algorithm from Numerical Recipes*/
 	int i;
-	double y = 0;
+	double y;
+	
+	y = coeff[degree-1];
+	for( i=degree-1; i>0; i--)
+		y = y * x + coeff[i-1];
 
-	for( i=0; i<degree; i++)
-		y += coeff[i] * pow(x, i);
 	return y;
 #endif
 
