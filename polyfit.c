@@ -40,13 +40,6 @@ int polyfit(int npoints, int degree, double *xi, double *yi, double *coeff)
   gsl_multifit_linear_free(ws);
 #else
   /* Placeholder for naive backup version */
-  int i, j;
-  double chisq;
-
-  float wmax, tmp, thresh, sum, *b, *afunc, *vector();
-
-  b = malloc(
-
   
   
 #endif
