@@ -20,7 +20,7 @@ int main()
   }
 
   double x = 10;
-  printf("\n y = f(x) = f(%6.2f) = %6.2f \n", x, polyval(coeff, DEGREE, x) );
+  printf("\ny = f(x) = f(%6.2f) = %6.2f \n", x, polyval(coeff, DEGREE, x) );
 
   return 0;
 }
