@@ -7,13 +7,17 @@ CPP = cpp
 # Default linker is CC
 LINKER   = $(CC)
 
+# LAPACK or GSL required	
+LAPACK_INC_DIR = /usr/include/lapacke
+LAPACK_LIB_DIR = /usr/lib64
+GSL_INC_DIR = /usr/include/gsl
+GSL_LIB_DIR = /usr/include/gsl
+
 # Default compiler flags
-CFLAGS    = -O2 -DUSE_GSL
-# CFLAGS    = -O2 -DUSE_GSL
+CFLAGS    = -O2 
 FFLAGS    = -O2
 CXXFLAGS  = -O2
-LDFLAGS   += -lm -lgsl -lgslcblas 
-# LDFLAGS   += -L/usr/lib64/atlas -lm -lgsl -lcblas -latlas
+LDFLAGS   += -lm 
 
 # Include file directories
 INC_DIRS +=

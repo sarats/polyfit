@@ -7,13 +7,17 @@ CPP = cpp
 # Default linker is CC
 LINKER   = $(CC)
 
+# LAPACK or GSL required	
+LAPACK_INC_DIR = /usr/include/lapack
+LAPACK_LIB_DIR = /usr/lib64
+GSL_INC_DIR = ${GSL_DIR}/include 
+GSL_LIB_DIR = ${GSL_DIR}/lib
+
 # Default compiler flags
-CFLAGS    = -O2 -DUSE_GSL ${GSL_INCLUDE_OPTS}
-# CFLAGS    = -O2 -DUSE_GSL
+CFLAGS    = -O2 
 FFLAGS    = -O2
 CXXFLAGS  = -O2
-LDFLAGS   += -lm ${GSL_POST_LINK_OPTS}
-# LDFLAGS   += -lm -lgsl -lcblas 
+LDFLAGS   += -lm 
 
 # Include file directories
 INC_DIRS +=
