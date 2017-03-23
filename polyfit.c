@@ -69,6 +69,8 @@ int polyfit(int npoints, int degree, double *xi, double *yi, double *coeff)
   */
   info = LAPACKE_dgelsd( LAPACK_ROW_MAJOR, m, n, nrhs, A, lda,
 		  B, ldb, S, rcond, &rank );
+  if ( info != 0)
+	  printf("\n Error %d encounted in polyfit using LAPACKE_dgelsd\n", info);
 
   /* info = LAPACKE_dgels( LAPACK_ROW_MAJOR, 'N', m, n, nrhs, A, lda, */
 		  /* B, ldb ); */
