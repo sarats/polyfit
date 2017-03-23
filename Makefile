@@ -11,6 +11,14 @@ MACHINE = Linux
 # MACHINE = Eos
 include Make_$(MACHINE).inc
 
+ifdef gsl
+    CFLAGS += -DUSE_GSL -I${GSL_INC_DIR}
+	LDFLAGS += -L${GSL_LIB_DIR} -lgsl -lgslcblas
+else
+    CFLAGS += -I${LAPACK_INC_DIR}
+	LDFLAGS += -L/${LAPACK_LIB_DIR} -llapacke -llapack
+endif	
+
 ifdef debug
 	# In case you use -DDEBUG=n to print debugging info (at log level 'n') 
 	CFLAGS   += -DDEBUG=$(debug) -g 
@@ -44,8 +52,8 @@ MASTER_EXE = driver
 # Package name (present directory name + -pkg)
 PACKAGE_NAME = package
 
-all: 
-	@echo -e "Usage:   make single (create single exe from all sources) \n\t make multiple (separate exe for each source file)"
+all: single
+# @echo -e "Usage:   make single (create single exe from all sources) \n\t make multiple (separate exe for each source file)"
 
 single: $(ALL_OBJS) $(HEADERS) 
 	$(LINKER) -o $(MASTER_EXE) $(ALL_OBJS) $(LDFLAGS)
