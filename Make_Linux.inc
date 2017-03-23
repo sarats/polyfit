@@ -9,9 +9,9 @@ LINKER   = $(CC)
 
 # LAPACK or GSL required	
 LAPACK_INC_DIR = /usr/include/lapacke
-LAPACK_LIB_DIR = /usr/lib64
+LAPACK_LIB_DIR = -L/usr/lib64 -llapacke -llapack
 GSL_INC_DIR = /usr/include/gsl
-GSL_LIB_DIR = /usr/include/gsl
+GSL_LIBS = -L/usr/lib64 -lgsl -lgslcblas
 
 # Default compiler flags
 CFLAGS    = -O2 

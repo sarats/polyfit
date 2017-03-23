@@ -13,10 +13,10 @@ include Make_$(MACHINE).inc
 
 ifdef gsl
     CFLAGS += -DUSE_GSL -I${GSL_INC_DIR}
-	LDFLAGS += -L${GSL_LIB_DIR} -lgsl -lgslcblas
+	LDFLAGS += ${GSL_LIBS} 
 else
     CFLAGS += -I${LAPACK_INC_DIR}
-	LDFLAGS += -L/${LAPACK_LIB_DIR} -llapacke -llapack
+	LDFLAGS += ${LAPACK_LIBS} 
 endif	
 
 ifdef debug
