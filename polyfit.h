@@ -8,6 +8,8 @@ extern "C" {
 #if defined(USE_GSL)
 #include <gsl/gsl_multifit.h>
 #include <gsl/gsl_poly.h>
+#else
+#include <lapacke.h>
 #endif
 
 #include <math.h>
