@@ -8,10 +8,12 @@ CPP = cpp
 LINKER   = $(CC)
 
 # LAPACK or GSL required	
-LAPACK_INC_DIR = /usr/include/lapack
-LAPACK_LIB_DIR = /usr/lib64
+LAPACK_INC_DIR = /opt/cray/libsci/16.11.1/GNU/5.1/x86_64/include/
+# module load cray-libsci
+LAPACK_LIBS = 
 GSL_INC_DIR = ${GSL_DIR}/include 
-GSL_LIB_DIR = ${GSL_DIR}/lib
+GSL_LIBS = -L${GSL_DIR}/lib -lgsl -lgslcblas
+
 
 # Default compiler flags
 CFLAGS    = -O2 
