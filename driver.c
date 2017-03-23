@@ -15,11 +15,12 @@ int main()
 
   polyfit(NP, DEGREE, x, y, coeff);
 
+  printf("Polynomial eq: y = f(x) = ");
   for(i=0; i < DEGREE; i++) {
-	  printf("coeff[x^%d] = %6.2lf\n", i, coeff[i]);
+	  printf(" %+4.2f * x^%d", i, coeff[i]);
   }
 
-  double x = 10;
+  double x = 100;
   printf("\ny = f(x) = f(%6.2f) = %6.2f \n", x, polyval(coeff, DEGREE, x) );
 
   return 0;
