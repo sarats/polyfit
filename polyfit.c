@@ -43,11 +43,10 @@ int polyfit(int npoints, int degree, double *xi, double *yi, double *coeff)
   gsl_multifit_linear_free(ws);
 #else
   /* Least-squares implementation using LAPACK */
-  int m = npoints, n = degree, nrhs = 1, lda = degree, ldb = 1, info;
+  lapack_int m = npoints, n = degree, nrhs = 1, lda = degree, ldb = 1, info, rank;
   int i,j;
   double *A, *B, *S;
   double rcond = 1e-10;
-  int rank;
 
   A = (double *) malloc(m*n*sizeof(double));
   B = (double *) malloc(m*sizeof(double));
